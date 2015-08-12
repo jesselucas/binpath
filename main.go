@@ -56,8 +56,11 @@ func checkForBin(appname string) {
 
 				os.Setenv("PATH", v)
 
+				// Make sure to pass any arguments to the app
+				args := os.Args[2:len(os.Args)]
+
 				// Call command
-				cmd := exec.Command(appname)
+				cmd := exec.Command(appname, args...)
 				cmd.Stdin = os.Stdin
 				cmd.Stdout = os.Stdout
 				cmd.Stderr = os.Stderr
@@ -66,6 +69,7 @@ func checkForBin(appname string) {
 					log.Fatal(err)
 				}
 
+				return
 				os.Exit(0)
 			}
 		}
