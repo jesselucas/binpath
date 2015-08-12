@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	// "io/ioutil"
 	"log"
 	"os"
 	"os/exec"
@@ -54,23 +53,6 @@ func checkForBin(appname string) {
 				// set env for this bin path
 				v := fmt.Sprintf("$PATH:%v/bin", dir)
 				fmt.Println(v)
-
-				// TODO: Investigate solution to set environment variables to parent shell?
-				// path := "PATH=" + fmt.Sprintf("$PATH:%v/bin", dir)
-				// filename := "temp.sh"
-				// err = ioutil.WriteFile(filename, []byte(path), 0777)
-				// if err != nil {
-				// 	log.Fatal(err)
-				// }
-
-				// cmd := exec.Command("source", filename)
-				// cmd.Stdin = os.Stdin
-				// cmd.Stdout = os.Stdout
-				// cmd.Stderr = os.Stderr
-				// err = cmd.Run()
-				// if _, ok := err.(*exec.ExitError); ok {
-				// 	log.Fatal(err)
-				// }
 
 				os.Setenv("PATH", v)
 
