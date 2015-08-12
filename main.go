@@ -18,10 +18,7 @@ func main() {
 		log.Fatal("Must pass appname as argument")
 	}
 
-	fmt.Println(appname)
-
 	checkForBin(appname)
-
 }
 
 func checkForBin(appname string) {
