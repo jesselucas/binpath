@@ -69,7 +69,6 @@ func checkForBin(appname string) {
 					log.Fatal(err)
 				}
 
-				return
 				os.Exit(0)
 			}
 		}
