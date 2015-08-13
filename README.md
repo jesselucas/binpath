@@ -1,5 +1,5 @@
 ## binpath
-Finds the nearest /bin and execute a command in it.
+Finds the nearest /bin and executes a command in it.
 
 ## Usage
-`binpath (filename)`
+`binpath command [arguments]`
