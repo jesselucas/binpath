@@ -8,18 +8,21 @@ import (
 	"path/filepath"
 )
 
+const space = "  "
+
 func main() {
 	var command string
+
+	helpMessage := "binpath command [arguments]"
+	helpMessage = fmt.Sprintf("Example uasge: \n%s%v", space, helpMessage)
 
 	// Check arg for appname to load
 	if len(os.Args) > 1 {
 		command = os.Args[1]
 	} else {
-		fmt.Println("Must pass command as argument")
+		fmt.Println(helpMessage)
 		os.Exit(1)
 	}
-
-	helpMessage := "usage: binpath command [arguments]"
 
 	// Look for help flag before executing command
 	switch command {
