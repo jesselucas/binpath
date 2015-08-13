@@ -15,11 +15,11 @@ func main() {
 	if len(os.Args) > 1 {
 		command = os.Args[1]
 	} else {
-		fmt.Println("Must pass appname as argument")
+		fmt.Println("Must pass command as argument")
 		os.Exit(1)
 	}
 
-	helpMessage := "usage: binpath (command_name)"
+	helpMessage := "usage: binpath command [arguments]"
 
 	// Look for help flag before executing command
 	switch command {
@@ -38,7 +38,7 @@ func main() {
 
 }
 
-func checkForBin(appname string) {
+func checkForBin(command string) {
 	dirname := "." + string(filepath.Separator)
 
 	d, err := os.Open(dirname)
@@ -62,19 +62,38 @@ func checkForBin(appname string) {
 					log.Fatal(err)
 				}
 
-				fmt.Println("Found Bin in: ", dir)
+				// Set bin path
+				binPath := filepath.Join(dir, file.Name())
 
-				// set env for this bin path
-				v := fmt.Sprintf("$PATH:%v/bin", dir)
-				fmt.Println(v)
+				// Set path to command
+				commandPath := filepath.Join(binPath, command)
 
+				// Make to see if command exist in bin path
+				_, err = os.Stat(commandPath)
+				if err != nil {
+					fmt.Printf("-binpath: %v: command not found in: %v \n", command, binPath)
+					os.Exit(1)
+				}
+
+				// Create separator for easier reading
+				separator := "-----------------------"
+				fmt.Println(separator)
+
+				// Notify if a bin is found
+				fmt.Printf("Exec command: %v\n", commandPath)
+
+				// Print separator for separation of binpath and command
+				fmt.Println(separator)
+
+				// And binPath to $PATH env
+				v := fmt.Sprintf("$PATH:%v", binPath)
 				os.Setenv("PATH", v)
 
 				// Make sure to pass any arguments to the app
 				args := os.Args[2:len(os.Args)]
 
 				// Call command
-				cmd := exec.Command(appname, args...)
+				cmd := exec.Command(command, args...)
 				cmd.Stdin = os.Stdin
 				cmd.Stdout = os.Stdout
 				cmd.Stderr = os.Stderr
@@ -91,5 +110,5 @@ func checkForBin(appname string) {
 	// if it doesn't move up a directory and test
 	os.Chdir(".." + string(filepath.Separator))
 
-	checkForBin(appname)
+	checkForBin(command)
 }
