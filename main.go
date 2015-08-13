@@ -9,16 +9,33 @@ import (
 )
 
 func main() {
-	var appname string
+	var command string
 
 	// Check arg for appname to load
 	if len(os.Args) > 1 {
-		appname = os.Args[1]
+		command = os.Args[1]
 	} else {
-		log.Fatal("Must pass appname as argument")
+		fmt.Println("Must pass appname as argument")
+		os.Exit(1)
 	}
 
-	checkForBin(appname)
+	helpMessage := "usage: binpath (command_name)"
+
+	// Look for help flag before executing command
+	switch command {
+	case "--help":
+		fallthrough
+	case "-help":
+		fallthrough
+	case "--h":
+		fallthrough
+	case "-h":
+		fmt.Println(helpMessage)
+		os.Exit(1)
+	default:
+		checkForBin(command)
+	}
+
 }
 
 func checkForBin(appname string) {
