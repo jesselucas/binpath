@@ -32,7 +32,7 @@ func main() {
 		command = os.Args[1]
 	} else {
 		fmt.Println(helpMessage)
-		os.Exit(1)
+		os.Exit(0)
 	}
 
 	// Look for help flag before executing command
@@ -45,7 +45,7 @@ func main() {
 		fallthrough
 	case "-h":
 		fmt.Println(helpMessage)
-		os.Exit(1)
+		os.Exit(0)
 	case "-ls":
 		fallthrough
 	case "--ls":
@@ -163,8 +163,9 @@ func executeCommand(binPath string, command string) {
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
 	err = cmd.Run()
-	if _, ok := err.(*exec.ExitError); ok {
-		log.Fatal(err)
+	if err != nil {
+		fmt.Printf("-binpath: %v: error running command in: %v \n", command, binPath)
+		os.Exit(1)
 	}
 }
 
