@@ -9,9 +9,9 @@ Looks for the nearest `/bin` folder and executes a command in it. First searches
   list directory contents of nearest `/bin` folder
 
 ## Bash Complete
-If you'd like to enable bash complete add the `bp_bash_complete` file to your file system (such as your home directory). Edit your `.bashrc` to add it as a source:
+If you'd like to enable bash complete add the `bp_bash_complete` file to your file system. Edit your `.bashrc` to add it as a source:
 
-Ex. `source $HOME/bp_bash_complete`
+Ex. `source $GOPATH/src/github.com/jesselucas/binpath/bp_bash_complete`
 
 ### Alias
 `binpath` bash complete is setup to use the alias `bp`. 
