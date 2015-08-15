@@ -8,8 +8,10 @@ commands()
     prev="${COMP_WORDS[COMP_CWORD-1]}" # previous word
     cmd="${COMP_WORDS[0]}" # command (binpath/bp)
     
-    # call list flag on binpath
-    opts=$( ${cmd} --list )
+    # call list flag on binpath only for the first word (binpath/bp)
+	if [ "${prev}" == "${cmd}" ]; then
+    	opts=$(binpath --list)
+    fi
 
 	COMPREPLY=( $(compgen -W "${opts}" -- ${cur}) )
 	return 0
