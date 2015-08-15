@@ -17,4 +17,5 @@ Ex. `source $HOME/bp_bash_complete`
 `binpath` bash complete is setup to use the alias `bp`. 
 
 Add the alias to your .bashrc: 
+
 Ex. `alias bp='binpath'`
