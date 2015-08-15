@@ -1,0 +1,19 @@
+#! /bin/bash
+
+commands() 
+{
+    local cur prev opts cmd
+    COMPREPLY=()
+    cur="${COMP_WORDS[COMP_CWORD]}" # current word 
+    prev="${COMP_WORDS[COMP_CWORD-1]}" # previous word
+    cmd="${COMP_WORDS[0]}" # command (binpath/bp)
+    
+    # call list flag on binpath
+    opts=$( ${cmd} --list )
+
+	COMPREPLY=( $(compgen -W "${opts}" -- ${cur}) )
+	return 0
+}
+
+complete -F commands binpath
+complete -F commands bp
