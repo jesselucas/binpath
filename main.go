@@ -16,8 +16,16 @@ const br = "\n\n"
 func main() {
 	var command string
 
-	helpMessage := "binpath command [arguments]"
-	helpMessage = fmt.Sprintf("Example usage: \n%s%v", space, helpMessage)
+	usage := "binpath command [arguments]"
+	options := "-list, -ls"
+	optionsDesc := "list directory contents of bin path"
+
+	// Create help message with usage messaging
+	helpMessage := fmt.Sprintf(bold("USAGE:")+"\n%s%v", space, usage)
+	// Break between messages
+	helpMessage += br
+	// Add options messaging
+	helpMessage += fmt.Sprintf(bold("OPTIONS:")+"\n%v\n%s%v", options, space, optionsDesc)
 
 	// Check arg for appname to load
 	if len(os.Args) > 1 {
@@ -149,5 +157,8 @@ func executeCommand(binPath string, command string) {
 	if _, ok := err.(*exec.ExitError); ok {
 		log.Fatal(err)
 	}
+}
 
+func bold(s string) string {
+	return "\033[1m" + s + "\033[0m"
 }
