@@ -9,7 +9,8 @@ import (
 	"path/filepath"
 )
 
-const space = "  "
+const space = "  " // Used for pretty printing
+const br = "\n\n"
 
 func main() {
 	var command string
