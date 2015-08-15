@@ -46,7 +46,13 @@ func main() {
 	case "-h":
 		fmt.Println(helpMessage)
 		os.Exit(1)
-	case "--show-bash-completion":
+	case "-ls":
+		fallthrough
+	case "--ls":
+		fallthrough
+	case "-list":
+		fallthrough
+	case "--list":
 		checkForBin(command, true)
 	default:
 		checkForBin(command, false)
@@ -54,7 +60,9 @@ func main() {
 
 }
 
-func checkForBin(command string, showBashCompletion bool) {
+// Searches current folder then searches up until it finds a /bin folder
+// If a /bin is found it tries to execute a command or list the contents
+func checkForBin(command string, list bool) {
 	dirname := "." + string(filepath.Separator)
 
 	d, err := os.Open(dirname)
@@ -81,8 +89,8 @@ func checkForBin(command string, showBashCompletion bool) {
 				// Set bin path
 				binPath := filepath.Join(dir, file.Name())
 
-				// If --show-bash-completion flag was used then list out files in binPath
-				if showBashCompletion == true {
+				// If --list flag was used then list out files in binPath
+				if list == true {
 					// List files in bin folder
 					listBinPathFiles(binPath)
 				} else {
@@ -98,7 +106,8 @@ func checkForBin(command string, showBashCompletion bool) {
 	// If it doesn't move up a directory and test
 	os.Chdir(".." + string(filepath.Separator))
 
-	checkForBin(command, showBashCompletion)
+	// bin folder not found. Keep checking
+	checkForBin(command, list)
 }
 
 // Print out files found in binpath
