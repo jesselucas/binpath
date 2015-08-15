@@ -7,6 +7,7 @@ import (
 	"os"
 	"os/exec"
 	"path/filepath"
+	"strings"
 )
 
 const space = "  " // Used for pretty printing
@@ -101,7 +102,12 @@ func listBinPathFiles(binPath string) {
 	}
 
 	for _, file := range files {
-		fmt.Println(file.Name())
+		name := file.Name()
+
+		// If it's a hidden file don't print it
+		if !strings.HasPrefix(name, ".") {
+			fmt.Println(name)
+		}
 	}
 }
 
