@@ -1,5 +1,8 @@
-## binpath
+## BinPath
 Looks for the nearest `/bin` folder and executes a command in it. First searches your current folder and then searches up until it finds a `/bin` folder.
+
+## Installation
+`go get -u github.com/jesselucas/binpath`
 
 ## Usage
 `binpath command [arguments]`
